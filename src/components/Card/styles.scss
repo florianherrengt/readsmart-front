@@ -1,0 +1,53 @@
+@import "../../styles/variables.scss";
+
+$title-font-size : 18px;
+.card {
+    border: solid 1px #eeeeee;
+    max-width: 500px;
+    margin: 10px 0; 
+    line-height: 1.5;
+
+    .fa {
+        margin-right: 10px;
+    }
+
+    .card-content {
+        padding: 10px;
+    }
+
+    h1 {
+        color: #424242;
+        font-size: $title-font-size;
+    }
+    p {
+        color: #616161;
+        font-size: $title-font-size - 2;
+    }
+
+    .loading {
+        height: 20px;
+        margin: 10px;
+
+        &.loading-title {
+            width: 80%;
+            background-color: lighten($text-color-strong, 50%);
+        }
+        &.loading-text {
+            background-color: lighten($text-color, 50%);
+        }
+    }
+    .actionbar {
+        width: 100%;
+
+        button {
+            border: none;
+            background: none;
+            color: $text-color;
+
+            &:hover {
+                color: $active-color;
+                background: none;
+            }
+        }
+    }
+}

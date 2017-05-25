@@ -1,0 +1,32 @@
+.card {
+  border: solid 1px #eeeeee;
+  max-width: 500px;
+  margin: 10px 0;
+  line-height: 1.5; }
+  .card .fa {
+    margin-right: 10px; }
+  .card .card-content {
+    padding: 10px; }
+  .card h1 {
+    color: #424242;
+    font-size: 18px; }
+  .card p {
+    color: #616161;
+    font-size: 16px; }
+  .card .loading {
+    height: 20px;
+    margin: 10px; }
+    .card .loading.loading-title {
+      width: 80%;
+      background-color: #c2c2c2; }
+    .card .loading.loading-text {
+      background-color: #e1e1e1; }
+  .card .actionbar {
+    width: 100%; }
+    .card .actionbar button {
+      border: none;
+      background: none;
+      color: #616161; }
+      .card .actionbar button:hover {
+        color: #2196f3;
+        background: none; }
