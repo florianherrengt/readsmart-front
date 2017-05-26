@@ -33,6 +33,6 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
-    "prepush": "npm-run-all -p build-storybook"
+    "prepush": "npm-run-all -p build-storybook && git add storybook-static && git commit -m 'update storybook'"
   }
 }
