@@ -15,6 +15,7 @@
     "@storybook/react": "^2.21.0",
     "flow-bin": "^0.46.0",
     "flow-typed": "^2.1.2",
+    "husky": "^0.13.3",
     "jest": "^20.0.4",
     "lorem-ipsum": "^1.0.4",
     "node-sass-chokidar": "^0.0.1",
@@ -31,6 +32,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "prepush": "npm-run-all -p build-storybook"
   }
 }
