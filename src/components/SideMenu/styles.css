@@ -1,0 +1,23 @@
+.side-menu {
+  background: #eceff1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 250px;
+  color: #616161;
+  padding: 20px; }
+  .side-menu .title {
+    font-size: 20px; }
+  .side-menu .group {
+    margin-top: 20px; }
+    .side-menu .group button {
+      background: none;
+      border: none;
+      color: #616161;
+      padding: 5px;
+      margin: 0; }
+    .side-menu .group .group-name .fa {
+      margin-right: 10px; }
+    .side-menu .group .group-items {
+      margin-left: 30px; }

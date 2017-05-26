@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import {
     FormGroup,
@@ -28,6 +29,7 @@ const ReadyForm = ({ formControlProps, isValid }) =>
           </InputGroup>);
 
 export class UrlForm extends React.Component {
+    state: { value: string };
     constructor(
         props: {
             value: string,
@@ -40,20 +42,17 @@ export class UrlForm extends React.Component {
         };
     }
     _isValid() {
-        if (!this.state.value || this.props.isLoading) {
-            return;
-        }
         var a = document.createElement('a');
         a.href = this.state.value;
         return a.host && a.host === window.location.host;
     }
-    _getValidationState(): 'error' | 'success' {
+    _getValidationState(): 'error' | 'success' | '' {
         if (!this.state.value || this.props.isLoading) {
-            return;
+            return '';
         }
         return this._isValid() ? 'error' : 'success';
     }
-    _handleChange = (event: Event) => {
+    _handleChange = (event: SyntheticInputEvent) => {
         this.setState({ value: event.target.value });
     };
     render() {

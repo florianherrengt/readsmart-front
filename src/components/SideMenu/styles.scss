@@ -1,0 +1,35 @@
+@import "../../styles/variables.scss";
+
+.side-menu {
+    background: $background-color;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 250px;
+    color: $text-color;
+    padding: 20px;
+
+    .title {
+        font-size: 20px;
+    }
+
+    .group {
+        button {
+            background: none;
+            border: none;
+            color: $text-color;
+            padding: 5px;
+            margin: 0;
+        }
+        margin-top: 20px;
+        .group-name {
+            .fa {
+                margin-right: 10px;
+            }
+        }
+        .group-items {
+            margin-left: 30px;
+        }
+    }
+}

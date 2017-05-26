@@ -4,6 +4,14 @@ import './styles.css';
 import { Button, Grid, Row, Col } from 'react-bootstrap';
 import FontAwesome from 'react-fontawesome';
 
+export type CardProps = {
+    title?: string,
+    text?: string,
+    isLoading?: boolean,
+    showError?: boolean,
+    saved?: boolean
+};
+
 export const LoadingCard = () => (
     <div className="card">
         <div className="loading loading-title" />
@@ -15,13 +23,17 @@ export const LoadingCard = () => (
     </div>
 );
 
-const ActionBar = () => (
+export type ActionBarProps = {
+    saved?: boolean
+};
+
+const ActionBar = ({ saved }: ActionBarProps) => (
     <Grid className="actionbar">
         <Row className="show-grid text-center">
             <Col xs={4}>
                 <Button>
-                    <FontAwesome name="bookmark" />
-                    Save
+                    <FontAwesome name={saved ? 'check' : 'bookmark'} />
+                    {saved ? 'Saved' : 'Save'}
                 </Button>
             </Col>
 
@@ -43,21 +55,15 @@ const ActionBar = () => (
     </Grid>
 );
 
-export const ReadyCard = ({ title, text }: { title: string, text: string }) => (
+export const ReadyCard = ({ title, text, saved }: CardProps) => (
     <div className="card">
-        <div className="card-content">
+        <div className="card-content text-left">
             <h1>{title}</h1>
             <p>{text}</p>
         </div>
-        <ActionBar />
+        <ActionBar saved={saved} />
     </div>
 );
 
-export const Card = (
-    props: {
-        title?: string,
-        text?: string,
-        isLoading?: boolean,
-        showError?: boolean
-    }
-) => (!props.isLoading ? <ReadyCard {...props} /> : <LoadingCard {...props} />);
+export const Card = (props: CardProps) =>
+    (!props.isLoading ? <ReadyCard {...props} /> : <LoadingCard {...props} />);

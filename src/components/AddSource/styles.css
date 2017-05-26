@@ -1,0 +1,9 @@
+.preview {
+  text-align: center; }
+  .preview .head {
+    margin: 20px; }
+    .preview .head img {
+      height: 80px; }
+    .preview .head span {
+      font-size: 30px;
+      margin-left: 20px; }

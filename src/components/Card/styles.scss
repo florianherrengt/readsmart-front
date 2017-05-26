@@ -1,10 +1,13 @@
 @import "../../styles/variables.scss";
 
 $title-font-size : 18px;
+
+.card-list {
+}
 .card {
     border: solid 1px #eeeeee;
     max-width: 500px;
-    margin: 10px 0; 
+    margin: 10px auto;
     line-height: 1.5;
 
     .fa {
