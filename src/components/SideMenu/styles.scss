@@ -1,17 +1,36 @@
 @import "../../styles/variables.scss";
 
+$menu-size: 250px;
+
 .side-menu {
     background: $background-color;
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
-    width: 250px;
+    width: $menu-size;
     color: $text-color;
     padding: 20px;
+    
+    .fa {
+        margin-right: 10px;
+    }
 
+    button {
+        background: none;
+        border: none;
+        color: $text-color;
+        padding: 5px;
+        margin: 0;
+        &:hover, &:active, &:target {
+            background: none;
+            color: $text-color-strong;
+            text-decoration: underline;
+        }
+    }
     .title {
         font-size: 20px;
+        margin-bottom: 20px;
     }
 
     &-add-source {
@@ -26,25 +45,24 @@
             color: $text-color-strong;
             background: none;
             width: 100%;
+            padding: 10px;
+            &:hover {
+                background: #0D47A1;
+                color: $text-color-white;
+                text-decoration: none;
+                border: none;
+            }
         }
     }
 
     .group {
-        button {
-            background: none;
-            border: none;
-            color: $text-color;
-            padding: 5px;
-            margin: 0;
-        }
         margin-top: 20px;
-        .group-name {
-            .fa {
-                margin-right: 10px;
-            }
-        }
         .group-items {
             margin-left: 30px;
         }
     }
+}
+
+.side-menu-content {
+    margin-left: $menu-size;
 }

@@ -7,8 +7,21 @@
   width: 250px;
   color: #616161;
   padding: 20px; }
+  .side-menu .fa {
+    margin-right: 10px; }
+  .side-menu button {
+    background: none;
+    border: none;
+    color: #616161;
+    padding: 5px;
+    margin: 0; }
+    .side-menu button:hover, .side-menu button:active, .side-menu button:target {
+      background: none;
+      color: #424242;
+      text-decoration: underline; }
   .side-menu .title {
-    font-size: 20px; }
+    font-size: 20px;
+    margin-bottom: 20px; }
   .side-menu-add-source {
     position: absolute;
     bottom: 20px;
@@ -19,16 +32,17 @@
       border: 1px dashed #424242;
       color: #424242;
       background: none;
-      width: 100%; }
+      width: 100%;
+      padding: 10px; }
+      .side-menu-add-source button:hover {
+        background: #0D47A1;
+        color: #eceff1;
+        text-decoration: none;
+        border: none; }
   .side-menu .group {
     margin-top: 20px; }
-    .side-menu .group button {
-      background: none;
-      border: none;
-      color: #616161;
-      padding: 5px;
-      margin: 0; }
-    .side-menu .group .group-name .fa {
-      margin-right: 10px; }
     .side-menu .group .group-items {
       margin-left: 30px; }
+
+.side-menu-content {
+  margin-left: 250px; }

@@ -6,6 +6,8 @@ import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 import { SideMenu } from '../components/SideMenu';
 import type { SideMenuProps, SideMenuItem } from '../components/SideMenu';
+import { generateCardProps } from './CardList';
+import { CardList } from '../components/Card/CardList';
 
 const redditItems: SideMenuItem[] = [
     {
@@ -28,5 +30,6 @@ storiesOf('SideMenu', module).add('with a few sources', () => (
         onItemClick={item => console.log('item clicked', item)}
         groups={['Reddit', 'Medium']}
         items={[redditItems, mediumItems]}
+        children={<CardList cards={generateCardProps()} />}
     />
 ));
