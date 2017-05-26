@@ -23,7 +23,7 @@ const mediumItems: SideMenuItem[] = [
         name: 'Freecodecamp'
     }
 ];
-storiesOf('SideMenu', module).add('with no items', () => (
+storiesOf('SideMenu', module).add('with a few sources', () => (
     <SideMenu
         onItemClick={item => console.log('item clicked', item)}
         groups={['Reddit', 'Medium']}
