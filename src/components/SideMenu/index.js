@@ -1,9 +1,9 @@
 // @flow
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
+import { Button } from 'react-bootstrap';
 import './styles.css';
 import { Group } from './Group';
-// import type { GroupProps } from './Group';
 
 export type SideMenuItem = {
     name: string
@@ -26,5 +26,10 @@ export const SideMenu = (props: SideMenuProps) => (
                 items={props.items[index]}
             />
         ))}
+        <div className="side-menu-add-source">
+            <div>
+                <Button>Add source</Button>
+            </div>
+        </div>
     </div>
 );
