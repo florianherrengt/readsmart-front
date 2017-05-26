@@ -13,6 +13,8 @@
   "devDependencies": {
     "@kadira/storybook": "^2.21.0",
     "@storybook/react": "^2.21.0",
+    "eslint": "^3.19.0",
+    "eslint-config-react-app": "^1.0.4",
     "flow-bin": "^0.46.0",
     "flow-typed": "^2.1.2",
     "husky": "^0.13.3",
@@ -24,6 +26,7 @@
   },
   "scripts": {
     "flow": "flow",
+    "lint": "eslint src",
     "start-js": "react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
     "build": "npm run build-css && react-scripts build",
@@ -33,6 +36,6 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
-    "prepush": "npm-run-all -p build-storybook && git add storybook-static && git commit -m 'update storybook'"
+    "prepush": "npm-run-all -p flow lint"
   }
 }
