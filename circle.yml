@@ -17,5 +17,7 @@ test:
 deployment:
   branch: master
   commands:
+    - node node_modules/node-sass/scripts/install.js
+    - npm rebuild node-sass
     - yarn build
     - AWS_DEFAULT_REGION=eu-west-2 aws s3 cp build s3://readsmart --recursive
