@@ -1,0 +1,21 @@
+machine:
+  node:
+    version: 6.1.0
+
+dependencies:
+  override:
+    - npm i -g yarn
+    - yarn
+    - ./node_modules/.bin/flow-typed install
+
+test:
+  override:
+    - yarn run lint
+    - yarn run flow
+    - yarn test
+
+deployment:
+  branch: master
+  commands:
+    - yarn build
+    - AWS_DEFAULT_REGION=eu-west-2 aws s3 cp build s3://readsmart --recursive
