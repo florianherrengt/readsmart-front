@@ -38,7 +38,8 @@ export class Group extends React.Component {
                             <GroupItem
                                 key={index}
                                 {...itemProps}
-                                onClick={this.props.onItemClick}
+                                onClick={itemProps =>
+                                    this.props.onItemClick(itemProps)}
                             />
                         ))}
                     </div>}

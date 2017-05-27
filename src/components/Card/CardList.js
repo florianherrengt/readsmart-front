@@ -5,10 +5,17 @@ import type { CardProps } from './index';
 import './styles.css';
 
 export type CardListProps = {
-    cards: CardProps[]
+    cards?: CardProps[],
+    isLoading?: boolean
 };
 export const CardList = (props: CardListProps) => (
     <div className="card-list">
-        {props.cards.map((cardProps, index) => <Card {...cardProps} />)}
+        {props.cards
+            ? props.cards.map((cardProps, index) => (
+                  <Card key={index} {...cardProps} />
+              ))
+            : Array(10)
+                  .fill('')
+                  .map((_, index) => <Card key={index} isLoading />)}
     </div>
 );

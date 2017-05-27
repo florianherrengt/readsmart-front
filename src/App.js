@@ -1,51 +1,15 @@
 // @flow
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
-import { Card } from './components/Card';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { SideMenu } from './components/SideMenu';
-import { CardList } from './components/Card/CardList';
+import type { SideMenuProps } from './components/SideMenu';
 import './App.css';
 import {
-    gql,
     ApolloClient,
     createNetworkInterface,
-    ApolloProvider,
-    graphql
+    ApolloProvider
 } from 'react-apollo';
-
-const CardListWithData = graphql(
-    gql`query ($sub: String!){
-        redditPosts(sub: $sub) {
-            count,
-            posts {
-                title
-                text
-                image
-                created_at
-            }
-        }
-    }`,
-    {
-        options: ({ sub }) => ({
-            variables: { sub },
-            notifyOnNetworkStatusChange: true
-        })
-    }
-)(({ data }) => {
-    if (!data.redditPosts) {
-        return <div />;
-    }
-    return (
-        <CardList
-            {...data}
-            cards={data.redditPosts.posts.map(post => ({
-                ...post,
-                text: decodeURIComponent(post.text)
-            }))}
-        />
-    );
-});
+import { CardListWithData } from './routes/sources/Reddit';
 
 class App extends Component {
     _createClient() {
@@ -56,21 +20,41 @@ class App extends Component {
         });
     }
     render() {
+        const sideMenuProps: SideMenuProps = {
+            groups: ['Reddit'],
+            items: [[{ name: 'Javascript' }, { name: 'Python' }]]
+        };
         return (
             <div className="App">
                 <ApolloProvider client={this._createClient()}>
                     <Router>
-                        <Route
-                            path="/source/:source/item/:item"
-                            component={({ match }) => (
-                                <SideMenu
-                                    groups={['reddit']}
-                                    items={[[{ name: 'ja' }]]}
-                                >
-                                    <CardListWithData sub={match.params.item} />
-                                </SideMenu>
-                            )}
-                        />
+                        <div>
+                            <Route
+                                exact
+                                path="/"
+                                component={options => (
+                                    <SideMenu {...sideMenuProps} {...options}>
+                                        <div>No items saved yet</div>
+                                    </SideMenu>
+                                )}
+                            />
+                            <Route
+                                path="/source/:source/item/:item"
+                                component={options => {
+                                    const { match } = options;
+                                    return (
+                                        <SideMenu
+                                            {...sideMenuProps}
+                                            {...options}
+                                        >
+                                            <CardListWithData
+                                                sub={match.params.item}
+                                            />
+                                        </SideMenu>
+                                    );
+                                }}
+                            />
+                        </div>
                     </Router>
                 </ApolloProvider>
             </div>

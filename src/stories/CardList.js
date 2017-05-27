@@ -24,6 +24,4 @@ export function generateCardProps(isLoading?: boolean): CardProps[] {
 
 storiesOf('CardList', module)
     .add('with title and text', () => <CardList cards={generateCardProps()} />)
-    .add('with loading true', () => (
-        <CardList cards={generateCardProps(true)} />
-    ));
+    .add('with loading true', () => <CardList isLoading />);
