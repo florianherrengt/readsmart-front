@@ -30,6 +30,7 @@ storiesOf('SideMenu', module).add('with a few sources', () => (
         onItemClick={item => console.log('item clicked', item)}
         groups={['Reddit', 'Medium']}
         items={[redditItems, mediumItems]}
-        children={<CardList cards={generateCardProps()} />}
-    />
+    >
+        <CardList cards={generateCardProps()} />
+    </SideMenu>
 ));

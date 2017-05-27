@@ -1,25 +1,81 @@
 // @flow
-import React, { Component } from "react";
-import { Button } from "react-bootstrap";
-import {Card} from './components/Card'
-import logo from "./logo.svg";
-import "./App.css";
+import React, { Component } from 'react';
+import { Button } from 'react-bootstrap';
+import { Card } from './components/Card';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { SideMenu } from './components/SideMenu';
+import { CardList } from './components/Card/CardList';
+import './App.css';
+import {
+    gql,
+    ApolloClient,
+    createNetworkInterface,
+    ApolloProvider,
+    graphql
+} from 'react-apollo';
+
+const CardListWithData = graphql(
+    gql`query ($sub: String!){
+        redditPosts(sub: $sub) {
+            count,
+            posts {
+                title
+                text
+                image
+                created_at
+            }
+        }
+    }`,
+    {
+        options: ({ sub }) => ({
+            variables: { sub },
+            notifyOnNetworkStatusChange: true
+        })
+    }
+)(({ data }) => {
+    if (!data.redditPosts) {
+        return <div />;
+    }
+    return (
+        <CardList
+            {...data}
+            cards={data.redditPosts.posts.map(post => ({
+                ...post,
+                text: decodeURIComponent(post.text)
+            }))}
+        />
+    );
+});
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <Card title="This is a card" />
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    _createClient() {
+        return new ApolloClient({
+            networkInterface: createNetworkInterface({
+                uri: 'https://readsmart.herokuapp.com/graphql'
+            })
+        });
+    }
+    render() {
+        return (
+            <div className="App">
+                <ApolloProvider client={this._createClient()}>
+                    <Router>
+                        <Route
+                            path="/source/:source/item/:item"
+                            component={({ match }) => (
+                                <SideMenu
+                                    groups={['reddit']}
+                                    items={[[{ name: 'ja' }]]}
+                                >
+                                    <CardListWithData sub={match.params.item} />
+                                </SideMenu>
+                            )}
+                        />
+                    </Router>
+                </ApolloProvider>
+            </div>
+        );
+    }
 }
 
 export default App;

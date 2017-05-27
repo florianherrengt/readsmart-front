@@ -10,7 +10,7 @@ export type SideMenuItem = {
 };
 
 export type SideMenuProps = {
-    onItemClick: Function,
+    onItemClick?: Function,
     groups: string[],
     items: SideMenuItem[][],
     children?: any

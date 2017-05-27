@@ -13,8 +13,8 @@ export function generateCardProps(isLoading?: boolean): CardProps[] {
     const generatedProps = [];
     for (let i = 0; i < 10; i++) {
         const props: CardProps = {
-            title: loremIpsum(1),
-            text: loremIpsum(5),
+            title: loremIpsum({ count: 1 }),
+            text: loremIpsum({ count: 5 }),
             isLoading
         };
         generatedProps.push(props);

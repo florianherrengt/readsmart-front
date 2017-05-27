@@ -22,6 +22,7 @@ $menu-size: 250px;
         color: $text-color;
         padding: 5px;
         margin: 0;
+        box-shadow: none;
         &:hover, &:active, &:target {
             background: none;
             color: $text-color-strong;

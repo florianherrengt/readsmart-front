@@ -14,7 +14,8 @@
     border: none;
     color: #616161;
     padding: 5px;
-    margin: 0; }
+    margin: 0;
+    box-shadow: none; }
     .side-menu button:hover, .side-menu button:active, .side-menu button:target {
       background: none;
       color: #424242;

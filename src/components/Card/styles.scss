@@ -21,6 +21,7 @@ $title-font-size : 18px;
     h1 {
         color: #424242;
         font-size: $title-font-size;
+        margin: 15px 0 20px 0;
     }
     p {
         color: #616161;
@@ -46,6 +47,7 @@ $title-font-size : 18px;
             border: none;
             background: none;
             color: $text-color;
+            box-shadow: none;
 
             &:hover {
                 color: $active-color;

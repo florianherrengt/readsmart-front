@@ -9,7 +9,8 @@
     padding: 10px; }
   .card h1 {
     color: #424242;
-    font-size: 18px; }
+    font-size: 18px;
+    margin: 15px 0 20px 0; }
   .card p {
     color: #616161;
     font-size: 16px; }
@@ -26,7 +27,8 @@
     .card .actionbar button {
       border: none;
       background: none;
-      color: #616161; }
+      color: #616161;
+      box-shadow: none; }
       .card .actionbar button:hover {
         color: #2196f3;
         background: none; }
