@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "aws-iot-device-sdk": "^1.0.14",
     "bootstrap": "3",
     "font-awesome": "^4.7.0",
+    "lodash.throttle": "^4.1.1",
     "node-sass": "^4.5.3",
     "react": "^15.5.4",
     "react-apollo": "^1.2.0",
@@ -16,7 +18,7 @@
   },
   "devDependencies": {
     "@kadira/storybook": "^2.21.0",
-    "@storybook/react": "^2.21.0",
+    "@storybook/react": "^3.0.0",
     "eslint": "^3.19.0",
     "eslint-config-react-app": "^1.0.4",
     "flow-bin": "^0.46.0",
@@ -26,7 +28,8 @@
     "lorem-ipsum": "^1.0.4",
     "node-sass-chokidar": "^0.0.1",
     "npm-run-all": "^4.0.2",
-    "react-scripts": "1.0.5"
+    "react-scripts": "1.0.5",
+    "serverless": "^1.14.0"
   },
   "scripts": {
     "flow": "flow",

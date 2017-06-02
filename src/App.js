@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { SideMenu } from './components/SideMenu';
 import type { SideMenuProps } from './components/SideMenu';
+
 import './App.css';
 import {
     ApolloClient,
@@ -15,7 +16,7 @@ class App extends Component {
     _createClient() {
         return new ApolloClient({
             networkInterface: createNetworkInterface({
-                uri: 'https://readsmart.herokuapp.com/graphql'
+                uri: 'https://edyq6h7ipd.execute-api.eu-west-2.amazonaws.com/dev/graphql'
             })
         });
     }
@@ -48,6 +49,7 @@ class App extends Component {
                                             {...options}
                                         >
                                             <CardListWithData
+                                                iot={this.props.iot}
                                                 sub={match.params.item}
                                             />
                                         </SideMenu>

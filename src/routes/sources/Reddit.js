@@ -1,18 +1,19 @@
 import React from 'react';
 import { gql, graphql } from 'react-apollo';
 import { CardList } from '../../components/Card/CardList';
-import io from 'socket.io-client';
-const socket = io('http://readsmart.herokuapp.com');
+import throttle from 'lodash.throttle';
 
 export const CardListWithData = graphql(
     gql`query ($sub: String!){
         redditPosts(sub: $sub) {
             count,
             posts {
-                title
-                text
-                image
-                created_at
+                id,
+                title,
+                url,
+                text,
+                short_text,
+                isLoading
             }
         }
     }`,
@@ -22,17 +23,24 @@ export const CardListWithData = graphql(
             notifyOnNetworkStatusChange: true
         })
     }
-)(({ data }) => {
-    socket.on(`new-postsreddit:${data.variables.sub}`, () => data.refetch());
-    if (data.loading || (data.redditPosts && !data.redditPosts.posts.length)) {
-        return <CardList isLoading />;
+)(props => {
+    const { data, iot } = props;
+    iot.getClient().on(
+        'message',
+        throttle(topic => {
+            data.refetch();
+        }, 1000)
+    );
+    if (!data.redditPosts || !data.redditPosts.posts) {
+        return <CardList cards={[{ isLoading: true }]} />;
     }
+
     return (
         <CardList
             {...data}
             cards={data.redditPosts.posts.map(post => ({
                 ...post,
-                text: decodeURIComponent(post.text)
+                text: post.text
             }))}
         />
     );

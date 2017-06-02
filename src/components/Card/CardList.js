@@ -8,14 +8,17 @@ export type CardListProps = {
     cards?: CardProps[],
     isLoading?: boolean
 };
-export const CardList = (props: CardListProps) => (
-    <div className="card-list">
-        {props.cards
-            ? props.cards.map((cardProps, index) => (
-                  <Card key={index} {...cardProps} />
-              ))
-            : Array(10)
-                  .fill('')
-                  .map((_, index) => <Card key={index} isLoading />)}
-    </div>
-);
+export const CardList = (props: CardListProps) => {
+    console.log(props);
+    return (
+        <div className="card-list">
+            {props.cards
+                ? props.cards.map((cardProps, index) => (
+                      <Card key={index} {...cardProps} />
+                  ))
+                : Array(10)
+                      .fill('')
+                      .map((_, index) => <Card key={index} isLoading />)}
+        </div>
+    );
+};
