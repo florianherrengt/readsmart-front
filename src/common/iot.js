@@ -1,4 +1,12 @@
 import awsIot from 'aws-iot-device-sdk';
+import { ApolloClient, createNetworkInterface, gql } from 'react-apollo';
+
+// TODO: move this client to common
+const client = new ApolloClient({
+    networkInterface: createNetworkInterface({
+        uri: 'https://aftjf5akh1.execute-api.eu-west-2.amazonaws.com/development/graphql'
+    })
+});
 
 export class IoT {
     client: any;
@@ -6,17 +14,35 @@ export class IoT {
         Object.assign(this, params);
     }
     connect() {
-        return fetch('http://localhost:3001')
-            .then(response => response.json())
-            .then(({ accessKeyId, secretKey, sessionToken }) => {
+        return client
+            .query({
+                fetchPolicy: 'network-only',
+                query: gql`{
+                    iotConnection {
+                        iotEndpoint
+                        region
+                        accessKeyId
+                        secretKey
+                        sessionToken
+                    }
+                }`
+            })
+            .then(({ data }) => {
+                const {
+                    accessKeyId,
+                    secretKey,
+                    sessionToken,
+                    endpointAddress,
+                    region
+                } = data.iotConnection;
                 this.client = awsIot.device({
-                    region: 'eu-west-2',
+                    region,
                     protocol: 'wss',
                     accessKeyId,
                     secretKey,
                     sessionToken,
                     port: 443,
-                    host: 'aqe9yfh30d9cw.iot.eu-west-2.amazonaws.com'
+                    host: endpointAddress
                 });
                 this.client.on('connect', () => {
                     console.log('Iot connected');

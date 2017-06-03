@@ -16,7 +16,7 @@ class App extends Component {
     _createClient() {
         return new ApolloClient({
             networkInterface: createNetworkInterface({
-                uri: 'https://edyq6h7ipd.execute-api.eu-west-2.amazonaws.com/dev/graphql'
+                uri: 'https://aftjf5akh1.execute-api.eu-west-2.amazonaws.com/development/graphql'
             })
         });
     }
