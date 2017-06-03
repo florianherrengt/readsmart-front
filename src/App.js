@@ -34,7 +34,11 @@ class App extends Component {
                                 exact
                                 path="/"
                                 component={options => (
-                                    <SideMenu {...sideMenuProps} {...options}>
+                                    <SideMenu
+                                        root
+                                        {...sideMenuProps}
+                                        {...options}
+                                    >
                                         <div>No items saved yet</div>
                                     </SideMenu>
                                 )}

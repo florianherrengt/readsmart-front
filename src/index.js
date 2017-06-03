@@ -18,8 +18,8 @@ iot
         ReactDOM.render(<App iot={iot} />, document.getElementById('root'));
     })
     .catch(error => {
-        alert('Cannot connect to server');
+        console.log('Cannot connect to server', error);
     });
 
 // ReactDOM.render(<App />, document.getElementById("root"));
-registerServiceWorker();
+// registerServiceWorker();

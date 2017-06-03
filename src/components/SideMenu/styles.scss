@@ -10,7 +10,10 @@ $menu-size: 250px;
     bottom: 0;
     width: $menu-size;
     color: $text-color;
-    padding: 20px;
+    
+    &-list {
+        padding: 20px;
+    }
     
     .fa {
         margin-right: 10px;
@@ -37,9 +40,11 @@ $menu-size: 250px;
     &-add-source {
         position: absolute;
         bottom: 20px;
-        width: 210px;
+        width: 100%;
         &> div {
             text-align: center;
+            width: 200px;
+            margin: 0 auto;
         }
         button {
             border: 1px dashed $text-color-strong;

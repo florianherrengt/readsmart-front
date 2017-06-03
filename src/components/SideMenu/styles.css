@@ -5,8 +5,9 @@
   left: 0;
   bottom: 0;
   width: 250px;
-  color: #616161;
-  padding: 20px; }
+  color: #616161; }
+  .side-menu-list {
+    padding: 20px; }
   .side-menu .fa {
     margin-right: 10px; }
   .side-menu button {
@@ -26,9 +27,11 @@
   .side-menu-add-source {
     position: absolute;
     bottom: 20px;
-    width: 210px; }
+    width: 100%; }
     .side-menu-add-source > div {
-      text-align: center; }
+      text-align: center;
+      width: 200px;
+      margin: 0 auto; }
     .side-menu-add-source button {
       border: 1px dashed #424242;
       color: #424242;
