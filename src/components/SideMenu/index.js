@@ -17,7 +17,7 @@ export type SideMenuProps = {
     items: SideMenuItem[][],
     children?: any,
     history?: any,
-    root: boolean
+    root?: boolean
 };
 
 export const SideMenu = (props: SideMenuProps) => {
