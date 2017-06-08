@@ -1,13 +1,17 @@
 .side-menu {
   background: #eceff1;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 250px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
   color: #616161; }
   .side-menu-list {
-    padding: 20px; }
+    flex: 1; }
+  .side-menu .list-group-item {
+    border-radius: 0; }
+  .side-menu .list-group-item button {
+    text-transform: capitalize;
+    width: 100%;
+    text-align: left; }
   .side-menu .fa {
     margin-right: 10px; }
   .side-menu button {
@@ -23,9 +27,9 @@
       text-decoration: underline; }
   .side-menu .title {
     font-size: 20px;
-    margin-bottom: 20px; }
+    padding: 15px; }
   .side-menu-add-source {
-    position: absolute;
+    position: relative;
     bottom: 20px;
     width: 100%; }
     .side-menu-add-source > div {
@@ -45,8 +49,9 @@
         border: none; }
   .side-menu .group {
     margin-top: 20px; }
-    .side-menu .group .group-items {
-      margin-left: 30px; }
+  .side-menu .bottom-actions {
+    margin: 0;
+    padding: 0; }
 
 .side-menu-content {
   margin-left: 250px; }

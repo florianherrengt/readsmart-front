@@ -11,7 +11,7 @@ export type CardProps = {
     url?: string,
     isLoading?: boolean,
     showError?: boolean,
-    saved?: boolean
+    saved?: boolean,
 };
 
 export const LoadingCard = () => (
@@ -27,7 +27,7 @@ export const LoadingCard = () => (
 
 export type ActionBarProps = {
     saved?: boolean,
-    onMoreClick: Function
+    onMoreClick: Function,
 };
 
 const ActionBar = (props: ActionBarProps) => (
@@ -42,10 +42,7 @@ const ActionBar = (props: ActionBarProps) => (
 
             <Col xs={4}>
                 <Button onClick={() => props.onMoreClick()}>
-                    <FontAwesome
-                        style={{ fontSize: 20 }}
-                        name={`caret-square-o-${props.expanded ? 'up' : 'down'}`}
-                    />
+                    <FontAwesome style={{ fontSize: 20 }} name={`caret-square-o-${props.expanded ? 'up' : 'down'}`} />
                 </Button>
             </Col>
             <Col xs={4}>
@@ -82,17 +79,15 @@ export class ReadyCard extends React.Component {
         return (
             <div className="card">
                 <div className="card-content text-left">
-                    <h1><a href={url}>{title}</a></h1>
-                    {this.state.expanded
-                        ? this._renderLongText()
-                        : this._renderShortText()}
+                    <h1><a href={url} dangerouslySetInnerHTML={{ __html: title }} /></h1>
+                    {this.state.expanded ? this._renderLongText() : this._renderShortText()}
                 </div>
                 <ActionBar
                     saved={saved}
                     expanded={this.state.expanded}
                     onMoreClick={() =>
                         this.setState({
-                            expanded: !this.state.expanded
+                            expanded: !this.state.expanded,
                         })}
                 />
             </div>
@@ -100,5 +95,4 @@ export class ReadyCard extends React.Component {
     }
 }
 
-export const Card = (props: CardProps) =>
-    (!props.isLoading ? <ReadyCard {...props} /> : <LoadingCard {...props} />);
+export const Card = (props: CardProps) => (!props.isLoading ? <ReadyCard {...props} /> : <LoadingCard {...props} />);

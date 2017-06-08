@@ -10,16 +10,16 @@ import { IoT } from './common';
 const iot = new IoT({
     onMessage(topic) {
         console.log('root', topic);
-    }
+    },
 });
-iot
-    .connect()
-    .then(() => {
-        ReactDOM.render(<App iot={iot} />, document.getElementById('root'));
-    })
-    .catch(error => {
-        console.log('Cannot connect to server', error);
-    });
+// iot
+//     .connect()
+//     .then(() => {
+//         ReactDOM.render(<App iot={iot} />, document.getElementById('root'));
+//     })
+//     .catch(error => {
+//         console.log('Cannot connect to server', error);
+//     });
 
-// ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById('root'));
 // registerServiceWorker();

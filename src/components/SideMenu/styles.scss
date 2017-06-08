@@ -4,15 +4,29 @@ $menu-size: 250px;
 
 .side-menu {
     background: $background-color;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: $menu-size;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    // position: fixed;
+    // top: 0;
+    // left: 0;
+    // bottom: 0;
+    // width: $menu-size;
     color: $text-color;
+
     
     &-list {
-        padding: 20px;
+        flex: 1
+    }
+
+    .list-group-item {
+        border-radius: 0;
+    }
+
+    .list-group-item button {
+        text-transform: capitalize;
+        width: 100%;
+        text-align: left;
     }
     
     .fa {
@@ -34,11 +48,11 @@ $menu-size: 250px;
     }
     .title {
         font-size: 20px;
-        margin-bottom: 20px;
+        padding: 15px;
     }
 
     &-add-source {
-        position: absolute;
+        position: relative;
         bottom: 20px;
         width: 100%;
         &> div {
@@ -63,9 +77,11 @@ $menu-size: 250px;
 
     .group {
         margin-top: 20px;
-        .group-items {
-            margin-left: 30px;
-        }
+    }
+
+    .bottom-actions {
+        margin: 0;
+        padding: 0;
     }
 }
 

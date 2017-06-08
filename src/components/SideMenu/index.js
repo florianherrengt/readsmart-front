@@ -1,14 +1,12 @@
 // @flow
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, ListGroup, ListGroupItem } from 'react-bootstrap';
 import FontAwesome from 'react-fontawesome';
 import './styles.css';
 import { Group } from './Group';
-import MobileDetect from 'mobile-detect';
-const mobileDetect = new MobileDetect(window.navigator.userAgent);
 
 export type SideMenuItem = {
-    name: string
+    name: string,
 };
 
 export type SideMenuProps = {
@@ -17,61 +15,30 @@ export type SideMenuProps = {
     items: SideMenuItem[][],
     children?: any,
     history?: any,
-    root?: boolean
 };
 
 export const SideMenu = (props: SideMenuProps) => {
-    if (!props.children && props.groups && props.items && props.history) {
-        props.history.push(
-            `/source/${props.groups[0]}/item/${props.items[0][0].name}`
-        );
-    }
-    if (mobileDetect.mobile() && !props.root && props.children) {
-        return (
-            <div style={{ margin: 10, overflowX: 'hidden' }}>
-                {props.children}
-            </div>
-        );
-    }
     return (
-        <div>
-            <div
-                className="side-menu"
-                style={{
-                    width: mobileDetect.mobile() && props.root ? '100%' : ''
-                }}
-            >
-                <div className="side-menu-list">
-                    <div className="title text-center">ReadSmart</div>
-                    <div>
+        <div className="side-menu">
+            <div className="side-menu-list">
+                <div className="title text-center">ReadSmart</div>
+                <ListGroup>
+                    <ListGroupItem>
                         <Button><FontAwesome name="check" />Saved</Button>
-                    </div>
-                    <div>
+                    </ListGroupItem>
+                    <ListGroupItem>
                         <Button><FontAwesome name="share" />Shared</Button>
-                    </div>
-                    {props.groups.map((groupName, index) => (
-                        <Group
-                            key={index}
-                            name={groupName}
-                            onItemClick={item => {
-                                props.history &&
-                                    props.history.push(
-                                        `/source/${groupName}/item/${item.name}`
-                                    );
-                                props.onItemClick && props.onItemClick(item);
-                            }}
-                            items={props.items[index]}
-                        />
-                    ))}
-                </div>
-                <div className="side-menu-add-source">
-                    <div>
-                        <Button>Add source</Button>
-                    </div>
-                </div>
+                    </ListGroupItem>
+                </ListGroup>
+                {props.groups.map((groupName, index) => (
+                    <Group key={index} name={groupName} items={props.items[index]} />
+                ))}
             </div>
-            {props.children &&
-                <div className="side-menu-content">{props.children}</div>}
+            <ListGroup className="bottom-actions">
+                <ListGroupItem>
+                    <Button><FontAwesome name="plus" />Add source</Button>
+                </ListGroupItem>
+            </ListGroup>
         </div>
     );
 };

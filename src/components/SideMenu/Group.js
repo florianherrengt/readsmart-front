@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
-import { Button } from 'react-bootstrap';
+import { Button, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { GroupItem } from './Item';
 
 import type { SideMenuItem } from './index';
@@ -9,8 +9,7 @@ import type { SideMenuItem } from './index';
 export type GroupProps = {
     name: string,
     expanded?: boolean,
-    onItemClick: Function,
-    items: SideMenuItem[]
+    items: SideMenuItem[],
 };
 
 export class Group extends React.Component {
@@ -22,28 +21,20 @@ export class Group extends React.Component {
     render() {
         const { expanded } = this.state;
         return (
-            <div className="group">
-                <Button
-                    className="group-name"
-                    onClick={() => this.setState({ expanded: !expanded })}
-                >
-                    <FontAwesome
-                        name={expanded ? 'caret-down' : 'caret-right'}
-                    />
-                    {this.props.name}
-                </Button>
+            <ListGroup className="group">
+                <ListGroupItem>
+                    <Button className="group-name" onClick={() => this.setState({ expanded: !expanded })}>
+                        <FontAwesome name={expanded ? 'caret-down' : 'caret-right'} />
+                        {this.props.name}
+                    </Button>
+                </ListGroupItem>
                 {expanded &&
                     <div className="group-items">
                         {this.props.items.map((itemProps, index) => (
-                            <GroupItem
-                                key={index}
-                                {...itemProps}
-                                onClick={itemProps =>
-                                    this.props.onItemClick(itemProps)}
-                            />
+                            <GroupItem groupName={this.props.name} key={index} {...itemProps} />
                         ))}
                     </div>}
-            </div>
+            </ListGroup>
         );
     }
 }

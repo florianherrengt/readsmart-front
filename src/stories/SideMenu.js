@@ -11,26 +11,32 @@ import { CardList } from '../components/Card/CardList';
 
 const redditItems: SideMenuItem[] = [
     {
-        name: 'Javascript'
+        name: 'Javascript',
     },
     {
-        name: 'Python'
-    }
+        name: 'Python',
+    },
 ];
 const mediumItems: SideMenuItem[] = [
     {
-        name: 'Udacity'
+        name: 'Udacity',
     },
     {
-        name: 'Freecodecamp'
-    }
+        name: 'Freecodecamp',
+    },
 ];
-storiesOf('SideMenu', module).add('with a few sources', () => (
-    <SideMenu
-        onItemClick={item => console.log('item clicked', item)}
-        groups={['Reddit', 'Medium']}
-        items={[redditItems, mediumItems]}
-    >
-        <CardList cards={generateCardProps()} />
-    </SideMenu>
-));
+storiesOf('SideMenu', module)
+    .add('with a few sources', () => (
+        <SideMenu
+            onItemClick={item => console.log('item clicked', item)}
+            groups={['Reddit', 'Medium']}
+            items={[redditItems, mediumItems]}
+        >
+            <CardList cards={generateCardProps()} />
+        </SideMenu>
+    ))
+    .add('with no sources', () => (
+        <SideMenu onItemClick={item => console.log('item clicked', item)} groups={[]} items={[]}>
+            <CardList cards={generateCardProps()} />
+        </SideMenu>
+    ));

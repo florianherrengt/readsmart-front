@@ -3,27 +3,37 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { SideMenu } from './components/SideMenu';
 import type { SideMenuProps } from './components/SideMenu';
+import { AppLayout } from './components/Layouts';
+import FontAwesome from 'react-fontawesome';
 
 import './App.css';
-import {
-    ApolloClient,
-    createNetworkInterface,
-    ApolloProvider
-} from 'react-apollo';
+import { ApolloClient, createNetworkInterface, ApolloProvider } from 'react-apollo';
+import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
 import { CardListWithData } from './routes/sources/Reddit';
+
+const ROOT_URL = 'localhost:8000';
+const PROTOCOL = 'http';
+
+const networkInterface = createNetworkInterface({
+    uri: `${PROTOCOL}://${ROOT_URL}/graphql`,
+});
+
+const wsClient = new SubscriptionClient(`ws://${ROOT_URL}/subscriptions`, {
+    reconnect: true,
+});
+
+const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(networkInterface, wsClient);
 
 class App extends Component {
     _createClient() {
         return new ApolloClient({
-            networkInterface: createNetworkInterface({
-                uri: 'https://aftjf5akh1.execute-api.eu-west-2.amazonaws.com/development/graphql'
-            })
+            networkInterface: networkInterfaceWithSubscriptions,
         });
     }
     render() {
         const sideMenuProps: SideMenuProps = {
             groups: ['Reddit'],
-            items: [[{ name: 'Javascript' }, { name: 'Python' }]]
+            items: [[{ name: 'Javascript' }, { name: 'Python' }]],
         };
         return (
             <div className="App">
@@ -34,13 +44,12 @@ class App extends Component {
                                 exact
                                 path="/"
                                 component={options => (
-                                    <SideMenu
-                                        root
-                                        {...sideMenuProps}
-                                        {...options}
-                                    >
-                                        <div>No items saved yet</div>
-                                    </SideMenu>
+                                    <AppLayout
+                                        isFirst
+                                        SideMenu={[<SideMenu root={true} {...sideMenuProps} />]}
+                                        Header={'Saved'}
+                                        Content={<div />}
+                                    />
                                 )}
                             />
                             <Route
@@ -48,15 +57,15 @@ class App extends Component {
                                 component={options => {
                                     const { match } = options;
                                     return (
-                                        <SideMenu
-                                            {...sideMenuProps}
-                                            {...options}
-                                        >
-                                            <CardListWithData
-                                                iot={this.props.iot}
-                                                sub={match.params.item}
-                                            />
-                                        </SideMenu>
+                                        <AppLayout
+                                            SideMenu={<SideMenu root={true} {...sideMenuProps} />}
+                                            Header={[
+                                                match.params.source,
+                                                <FontAwesome style={{ margin: '0 10px' }} name="angle-right" />,
+                                                match.params.item,
+                                            ]}
+                                            Content={<CardListWithData sub={match.params.item} />}
+                                        />
                                     );
                                 }}
                             />
