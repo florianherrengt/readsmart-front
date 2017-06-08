@@ -12,7 +12,7 @@ test:
   override:
     - yarn run lint
     - yarn run flow
-    - yarn test --  --lastCommit=false -b --forceExit
+    # - yarn test --  --lastCommit=false -b --forceExit
 
 deployment:
   branch: master
