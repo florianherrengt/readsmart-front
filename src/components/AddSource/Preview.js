@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
 import type { SourceType } from './index';
 import { CardList } from '../Card/CardList';
 import type { CardProps } from '../Card';
@@ -10,14 +9,14 @@ import './styles.css';
 export type PreviewProps = {
     type?: SourceType,
     title?: string,
-    cards?: CardProps[]
+    cards?: CardProps[],
 };
 
 export const LOGOS = {
     reddit: require('../../../public/logos/reddit.png'),
     medium: require('../../../public/logos/medium.png'),
     rss: require('../../../public/logos/rss.png'),
-    hackernews: require('../../../public/logos/hackernews.png')
+    hackernews: require('../../../public/logos/hackernews.png'),
 };
 
 export const Head = (props: { logo: string, title?: string }) => (
