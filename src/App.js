@@ -65,6 +65,7 @@ class App extends Component {
                                                 match.params.item,
                                             ]}
                                             Content={<CardListWithData sub={match.params.item} />}
+                                            {...options}
                                         />
                                     );
                                 }}

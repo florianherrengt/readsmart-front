@@ -6,12 +6,6 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import './index.css';
-import { IoT } from './common';
-const iot = new IoT({
-    onMessage(topic) {
-        console.log('root', topic);
-    },
-});
 // iot
 //     .connect()
 //     .then(() => {
