@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import { Button, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
 import './styles.css';
 import { Group } from './Group';
@@ -36,7 +37,7 @@ export const SideMenu = (props: SideMenuProps) => {
             </div>
             <ListGroup className="bottom-actions">
                 <ListGroupItem>
-                    <Button><FontAwesome name="plus" />Add source</Button>
+                    <Link to="/addsource"><Button><FontAwesome name="plus" />Add source</Button></Link>
                 </ListGroupItem>
             </ListGroup>
         </div>

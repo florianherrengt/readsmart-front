@@ -32,11 +32,11 @@ storiesOf('SideMenu', module)
             groups={['Reddit', 'Medium']}
             items={[redditItems, mediumItems]}
         >
-            <CardList cards={generateCardProps()} />
+            <CardList subscribeToMorePost={action('subscribeToMorePost')} cards={generateCardProps()} />
         </SideMenu>
     ))
     .add('with no sources', () => (
         <SideMenu onItemClick={item => console.log('item clicked', item)} groups={[]} items={[]}>
-            <CardList cards={generateCardProps()} />
+            <CardList subscribeToMorePost={action('subscribeToMorePost')} cards={generateCardProps()} />
         </SideMenu>
     ));

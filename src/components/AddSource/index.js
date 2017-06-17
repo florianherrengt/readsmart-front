@@ -10,10 +10,15 @@ export type AddSourceProps = {
     type?: SourceType,
     isLoading?: boolean,
     title?: string,
-    cards?: CardProps[]
+    cards?: CardProps[],
+    onUrlChange: Function,
+    subscribeToMorePost: Function,
 };
 
 export class AddSource extends React.Component {
+    state: {
+        url: string,
+    };
     constructor(props: AddSourceProps) {
         super(props);
     }
@@ -23,9 +28,11 @@ export class AddSource extends React.Component {
                 <UrlForm
                     value={this.props.url}
                     isLoading={this.props.isLoading}
+                    onChange={url => this.props.onUrlChange(url)}
                 />
                 {this.props.title &&
                     <Preview
+                        subscribeToMorePost={this.props.subscribeToMorePost}
                         type={this.props.type}
                         title={this.props.title}
                         cards={this.props.cards}

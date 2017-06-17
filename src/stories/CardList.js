@@ -3,7 +3,6 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { linkTo } from '@storybook/addon-links';
 import loremIpsum from 'lorem-ipsum';
 
 import { CardList } from '../components/Card/CardList';
@@ -15,7 +14,7 @@ export function generateCardProps(isLoading?: boolean): CardProps[] {
         const props: CardProps = {
             title: loremIpsum({ count: 1 }),
             text: loremIpsum({ count: 5 }),
-            isLoading
+            isLoading,
         };
         generatedProps.push(props);
     }
@@ -23,5 +22,5 @@ export function generateCardProps(isLoading?: boolean): CardProps[] {
 }
 
 storiesOf('CardList', module)
-    .add('with title and text', () => <CardList cards={generateCardProps()} />)
-    .add('with loading true', () => <CardList isLoading />);
+    .add('with title and text', () => <CardList subscribeToMorePost={action} cards={generateCardProps()} />)
+    .add('with loading true', () => <CardList subscribeToMorePost={action} isLoading />);

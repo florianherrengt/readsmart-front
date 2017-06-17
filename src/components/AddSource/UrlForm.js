@@ -1,13 +1,8 @@
 // @flow
 import React from 'react';
-import {
-    FormGroup,
-    InputGroup,
-    FormControl,
-    Button,
-    HelpBlock
-} from 'react-bootstrap';
+import { FormGroup, InputGroup, FormControl, Button, HelpBlock } from 'react-bootstrap';
 import FontAwesome from 'react-fontawesome';
+import isUrl from 'is-url';
 
 const LoadingForm = ({ formControlProps }) => (
     <InputGroup>
@@ -28,57 +23,56 @@ const ReadyForm = ({ formControlProps, isValid }) =>
               </InputGroup.Button>
           </InputGroup>);
 
+export type UrlFormProps = {
+    value: string,
+    isLoading: boolean,
+    onChange: Function,
+    isValid?: boolean,
+};
+
 export class UrlForm extends React.Component {
     state: { value: string };
-    constructor(
-        props: {
-            value: string,
-            isLoading: boolean
-        }
-    ) {
+    constructor(props: UrlFormProps) {
         super(props);
         this.state = {
-            value: props.value
+            value: props.value,
         };
     }
     _isValid() {
-        var a = document.createElement('a');
-        a.href = this.state.value;
-        return a.host && a.host === window.location.host;
-    }
-    _getValidationState(): 'error' | 'success' | '' {
-        if (!this.state.value || this.props.isLoading) {
-            return '';
+        let { value } = this.state;
+        if (value && value.slice(0, 7) !== 'http://') {
+            value = 'http://' + value;
         }
-        return this._isValid() ? 'error' : 'success';
+        return typeof this.props.isValid !== 'undefined' ? this.props.isValid : isUrl(value);
+    }
+    _getValidationState(): 'error' | 'success' | null {
+        if (!this.state.value || this.props.isLoading) {
+            return null;
+        }
+        return this._isValid() ? 'success' : 'error';
     }
     _handleChange = (event: SyntheticInputEvent) => {
-        this.setState({ value: event.target.value });
+        this.setState({ value: event.target.value }, () => {
+            this._isValid() && this.props.onChange(this.state.value);
+        });
     };
     render() {
         const formControlProps = {
             type: 'text',
             value: this.state.value,
-            placeholder: 'What do you want to subscribe to?',
-            onChange: this._handleChange
+            placeholder: 'Url from Reddit, Medium, Hackernews or RSS... (more sources coming soon)',
+            onChange: this._handleChange,
         };
         return (
             <div>
                 <form>
-                    <FormGroup
-                        controlId="formBasicText"
-                        validationState={this._getValidationState()}
-                    >
+                    <FormGroup controlId="formBasicText" validationState={this._getValidationState()}>
                         {!this.props.isLoading
                             ? <ReadyForm
                                   formControlProps={formControlProps}
-                                  isValid={
-                                      this._getValidationState() === 'success'
-                                  }
+                                  isValid={this._getValidationState() === 'success'}
                               />
-                            : <LoadingForm
-                                  formControlProps={formControlProps}
-                              />}
+                            : <LoadingForm formControlProps={formControlProps} />}
                         <div className="text-center">
                             {this._isValid() &&
                                 <HelpBlock>

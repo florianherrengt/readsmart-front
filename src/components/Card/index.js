@@ -3,6 +3,7 @@ import React from 'react';
 import './styles.css';
 import { Button, Grid, Row, Col } from 'react-bootstrap';
 import FontAwesome from 'react-fontawesome';
+import { CardLayout } from '../Layouts';
 
 export type CardProps = {
     title?: string,
@@ -13,17 +14,6 @@ export type CardProps = {
     showError?: boolean,
     saved?: boolean,
 };
-
-export const LoadingCard = () => (
-    <div className="card">
-        <div className="loading loading-title" />
-        <div className="loading loading-text" />
-        <div className="loading loading-text" />
-        <div className="loading loading-text" />
-        <div className="loading loading-text" />
-        <div className="loading loading-text" />
-    </div>
-);
 
 export type ActionBarProps = {
     saved?: boolean,
@@ -55,7 +45,7 @@ const ActionBar = (props: ActionBarProps) => (
     </Grid>
 );
 
-export class ReadyCard extends React.Component {
+export class Card extends React.Component {
     state: { expanded: boolean };
     constructor(props: CardProps) {
         super(props);
@@ -75,11 +65,19 @@ export class ReadyCard extends React.Component {
         return short_text ? this._splitText(short_text) : '';
     }
     render() {
-        const { title, url, saved } = this.props;
+        const { title, url, saved, isLoading } = this.props;
         return (
-            <div className="card">
+            <CardLayout>
                 <div className="card-content text-left">
-                    <h1><a href={url} dangerouslySetInnerHTML={{ __html: title }} /></h1>
+                    {isLoading && !title && <div className="loading loading-title" />}
+                    <h1><a href={url} dangerouslySetInnerHTML={{ __html: title }} target="_blank" /></h1>
+                    {isLoading &&
+                        <div>
+                            <div className="loading loading-text" />
+                            <div className="loading loading-text" />
+                            <div className="loading loading-text" />
+                            <div className="loading loading-text" />
+                        </div>}
                     {this.state.expanded ? this._renderLongText() : this._renderShortText()}
                 </div>
                 <ActionBar
@@ -90,9 +88,7 @@ export class ReadyCard extends React.Component {
                             expanded: !this.state.expanded,
                         })}
                 />
-            </div>
+            </CardLayout>
         );
     }
 }
-
-export const Card = (props: CardProps) => (!props.isLoading ? <ReadyCard {...props} /> : <LoadingCard {...props} />);

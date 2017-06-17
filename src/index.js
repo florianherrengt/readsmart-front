@@ -5,6 +5,7 @@ import App from './App';
 // import registerServiceWorker from './registerServiceWorker';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
+import 'bootstrap-social/bootstrap-social.css';
 import './index.css';
 // iot
 //     .connect()

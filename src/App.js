@@ -9,27 +9,35 @@ import FontAwesome from 'react-fontawesome';
 import './App.css';
 import { ApolloClient, createNetworkInterface, ApolloProvider } from 'react-apollo';
 import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
+import { LoginWithData } from './components/Login';
 import { CardListWithData } from './routes/sources/Reddit';
+import { AddSourceWithData } from './routes/addSource';
 
 const ROOT_URL = 'localhost:8000';
 const PROTOCOL = 'http';
 
 const networkInterface = createNetworkInterface({
     uri: `${PROTOCOL}://${ROOT_URL}/graphql`,
+    opts: {
+        credentials: 'include',
+    },
 });
 
 const wsClient = new SubscriptionClient(`ws://${ROOT_URL}/subscriptions`, {
     reconnect: true,
+    connectionParams: {
+        authToken: 'dd',
+    },
 });
 
 const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(networkInterface, wsClient);
 
+export const apolloClient = new ApolloClient({
+    dataIdFromObject: o => o.id,
+    networkInterface: networkInterfaceWithSubscriptions,
+});
+
 class App extends Component {
-    _createClient() {
-        return new ApolloClient({
-            networkInterface: networkInterfaceWithSubscriptions,
-        });
-    }
     render() {
         const sideMenuProps: SideMenuProps = {
             groups: ['Reddit'],
@@ -37,7 +45,7 @@ class App extends Component {
         };
         return (
             <div className="App">
-                <ApolloProvider client={this._createClient()}>
+                <ApolloProvider client={apolloClient}>
                     <Router>
                         <div>
                             <Route
@@ -46,7 +54,7 @@ class App extends Component {
                                 component={options => (
                                     <AppLayout
                                         isFirst
-                                        SideMenu={[<SideMenu root={true} {...sideMenuProps} />]}
+                                        SideMenu={<SideMenu root={true} {...sideMenuProps} />}
                                         Header={'Saved'}
                                         Content={<div />}
                                     />
@@ -60,11 +68,32 @@ class App extends Component {
                                         <AppLayout
                                             SideMenu={<SideMenu root={true} {...sideMenuProps} />}
                                             Header={[
-                                                match.params.source,
-                                                <FontAwesome style={{ margin: '0 10px' }} name="angle-right" />,
-                                                match.params.item,
+                                                <span key={1}>{match.params.source}</span>,
+                                                <FontAwesome key={2} style={{ margin: '0 10px' }} name="angle-right" />,
+                                                <span key={3}>{match.params.item}</span>,
                                             ]}
-                                            Content={<CardListWithData sub={match.params.item} />}
+                                            Content={
+                                                <div>
+                                                    <LoginWithData
+                                                        twitterUrl={`${PROTOCOL}://${ROOT_URL}/login/twitter`}
+                                                    />
+                                                    <CardListWithData sub={match.params.item} />
+                                                </div>
+                                            }
+                                            {...options}
+                                        />
+                                    );
+                                }}
+                            />
+                            <Route
+                                path="/addsource"
+                                component={options => {
+                                    // const { match } = options;
+                                    return (
+                                        <AppLayout
+                                            SideMenu={<SideMenu root={true} {...sideMenuProps} />}
+                                            Header={<div>Add Source</div>}
+                                            Content={<AddSourceWithData />}
                                             {...options}
                                         />
                                     );

@@ -1,64 +1,75 @@
 import React from 'react';
 import { gql, graphql } from 'react-apollo';
 import { CardList } from '../../components/Card/CardList';
-// import throttle from 'lodash.throttle';
+import merge from 'lodash.merge';
+import { redditPostsQuery } from '../../graphql/posts';
 
-let refetchCount = 0;
+export const CardListWithData = graphql(redditPostsQuery, {
+    options: ({ sub }) => ({
+        variables: { sub },
+        notifyOnNetworkStatusChange: true,
+    }),
+})(props => {
+    const { data } = props;
 
-export const CardListWithData = graphql(
-    gql`query ($sub: String!){
-        redditPosts(sub: $sub) {
-            count,
-            posts {
-                id,
-                title,
-                url,
-                text,
-                short_text,
-                isLoading
-            }
-        }
-    }`,
-    {
-        options: ({ sub }) => ({
-            variables: { sub },
-            notifyOnNetworkStatusChange: true,
-        }),
-    },
-)(props => {
-    const { data, iot } = props;
-    iot &&
-        iot.getClient().on('message', () => {
-            refetchCount++;
-            if (refetchCount < 5) {
-                data.refetch();
-            }
-        });
-    if (!data.redditPosts || !data.redditPosts.posts) {
-        return <CardList cards={[{ isLoading: true }]} />;
-    }
-
-    const subscribeToMorePost = data.subscribeToMore({
-        document: gql`
-                    subscription {
-                        postAdded {
-                            id
-                        }
+    const subscribeToMorePost = () =>
+        data.subscribeToMore({
+            document: gql`
+                subscription {
+                    postAdded {
+                        id,
+                        title,
+                        url,
+                        text,
+                        short_text,
+                        isLoading,
+                        created_at
                     }
-                `,
-        updateQuery: (prev, { subscriptionData }) => {
-            console.log('subscribeToMorePost', subscriptionData);
-        },
-    });
+                }
+            `,
+            updateQuery: (prev, { subscriptionData }) => {
+                if (!subscriptionData.data) {
+                    return prev;
+                }
+                const newFeedItem = subscriptionData.data.postAdded;
+                const newRedditPosts = prev.redditPosts.posts
+                    .filter(({ url }) => url !== newFeedItem.url)
+                    .concat([newFeedItem])
+                    .sort(function(a, b) {
+                        var keyA = new Date(a.created_at), keyB = new Date(b.created_at);
+                        if (keyA < keyB) return -1;
+                        if (keyA > keyB) return 1;
+                        return 0;
+                    });
+                return Object.assign({}, prev, {
+                    redditPosts: {
+                        ...prev.redditPosts,
+                        count: newRedditPosts.length,
+                        posts: newRedditPosts,
+                    },
+                });
+            },
+        });
+
+    if (!data.redditPosts || !data.redditPosts.posts) {
+        return <CardList subscribeToMorePost={subscribeToMorePost} cards={[{ isLoading: true }]} />;
+    }
 
     return (
         <CardList
             {...data}
             subscribeToMorePost={subscribeToMorePost}
-            cards={data.redditPosts.posts.map(post => ({
-                ...post,
-                text: post.text,
-            }))}
+            cards={data.redditPosts.posts
+                .map(post => ({
+                    ...post,
+                    text: post.text,
+                }))
+                .sort(function(a, b) {
+                    var keyA = new Date(a.created_at), keyB = new Date(b.created_at);
+                    if (keyA < keyB) return -1;
+                    if (keyA > keyB) return 1;
+                    return 0;
+                })}
         />
     );
 });
