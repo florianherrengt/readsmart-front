@@ -57,6 +57,6 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
-    "prepush": "npm-run-all -p flow lint"
+    "prepush": "CI=true npm-run-all -p flow lint test"
   }
 }

@@ -235,8 +235,8 @@
   resolved "https://registry.yarnpkg.com/@types/isomorphic-fetch/-/isomorphic-fetch-0.0.34.tgz#3c3483e606c041378438e951464f00e4e60706d6"
 
 "@types/node@*":
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.0.tgz#acaa89247afddc7967e9902fd11761dadea1a555"
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.1.tgz#89c271e0c3b9ebb6a3756dd601336970b6228b77"
 
 "@types/ws@^3.0.0":
   version "3.0.0"
@@ -643,8 +643,8 @@ aws-iot-device-sdk@^1.0.14:
     websocket-stream "^3.1.0"
 
 aws-sdk@^2.7.13:
-  version "2.73.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.73.0.tgz#15e0bb31436ebe433aebb6751dd6c36447beebba"
+  version "2.74.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.74.0.tgz#dbb128d274c1a049904a7cd8ce4a395a6a77af4d"
   dependencies:
     buffer "5.0.6"
     crypto-browserify "1.0.9"
@@ -1758,8 +1758,8 @@ bluebird@^3.4.0, bluebird@^3.4.7:
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.0.tgz#791420d7f551eea2897453a8a77653f96606d67c"
 
 bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.1.1, bn.js@^4.4.0:
-  version "4.11.6"
-  resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.11.6.tgz#53344adb14617a13f6e8dd2ce28905d1c0ba3215"
+  version "4.11.7"
+  resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.11.7.tgz#ddb048e50d9482790094c13eb3fcfc833ce7ab46"
 
 boolbase@~1.0.0:
   version "1.0.0"
@@ -4099,8 +4099,8 @@ graphql-tag@^2.0.0:
   resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.4.0.tgz#0fe137348d4db2efaf29b52ba4c1cbf84ac138cb"
 
 graphql@^0.10.0:
-  version "0.10.1"
-  resolved "https://registry.yarnpkg.com/graphql/-/graphql-0.10.1.tgz#75c93c2ce73aeb5bae2eefb555a8e9e39c36027d"
+  version "0.10.3"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-0.10.3.tgz#c313afd5518e673351bee18fb63e2a0e487407ab"
   dependencies:
     iterall "^1.1.0"
 
