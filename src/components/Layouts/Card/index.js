@@ -1,12 +1,11 @@
-import React, { ReactChildren } from 'react';
-import './styles.css';
+import React, { ReactChildren } from "react";
+import "./styles.css";
 
 export type CardLayoutProps = {
-    children: ReactChildren,
+  children: ReactChildren
 };
 
-export const CardLayout = (props: CardLayoutProps) => (
-    <div className="card">
-        {props.children}
-    </div>
-);
+export const CardLayout = (props: CardLayoutProps) =>
+  <div className="card">
+    {props.children}
+  </div>;

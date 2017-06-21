@@ -1,2 +1,2 @@
-import { IoT } from './iot';
+import { IoT } from "./iot";
 export { IoT };
