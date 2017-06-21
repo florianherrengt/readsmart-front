@@ -19,5 +19,5 @@ deployment:
   commands:
     - node node_modules/node-sass/scripts/install.js
     - npm rebuild node-sass
-    - NODE_ENV=production ROOT_URL=readsmart.herokuapp.com PROTOCOL=https yarn build
+    - NODE_ENV=production REACT_APP_ROOT_URL=readsmart.herokuapp.com REACT_APP_PROTOCOL=https yarn build
     - AWS_DEFAULT_REGION=eu-west-2 aws s3 cp build s3://readsmart --recursive

@@ -13,9 +13,10 @@ import { CardListWithData } from './routes/sources/Reddit';
 import { AddSourceWithData } from './routes/addSource';
 
 console.log(process.env.NODE_ENV);
+console.log(process.env.REACT_APP_ROOT_URL);
 
-const ROOT_URL = process.env.ROOT_URL || 'localhost:8000';
-const PROTOCOL = process.env.PROTOCOL || 'http';
+const ROOT_URL = process.env.REACT_APP_ROOT_URL || 'localhost:8000';
+const PROTOCOL = process.env.REACT_APP_PROTOCOL || 'http';
 
 const networkInterface = createNetworkInterface({
     uri: `${PROTOCOL}://${ROOT_URL}/graphql`,
