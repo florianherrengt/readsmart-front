@@ -16,7 +16,7 @@ export const AppLayout = (props: AppLayoutProps) => {
         <Grid
             style={{
                 width: '100vw',
-                height: '100vh',
+                height: '100%',
             }}
         >
             <Row>
@@ -27,7 +27,7 @@ export const AppLayout = (props: AppLayoutProps) => {
                     xsHidden={props.isFirst}
                     sm={9}
                     style={{
-                        height: '100vh',
+                        height: '100%',
                         display: 'flex',
                         flexDirection: 'column',
                         padding: 0,

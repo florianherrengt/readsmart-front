@@ -1,10 +1,11 @@
 import React from 'react';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import { AddSource, getSourceType } from '../../components/AddSource';
 import { apolloClient } from '../../App';
 import { redditPostsQuery } from '../../graphql/posts';
 import type { CardProps } from '../../components/Card';
 import { addSourceMutation, allSourcesQuery } from '../../graphql/source';
+import { currentUser } from '../../graphql/user';
 
 export class AddSourceRoute extends React.Component {
     state: {
@@ -33,6 +34,9 @@ export class AddSourceRoute extends React.Component {
         }
     };
     _onSave = async (variables: { type: string, url: string, name: string }) => {
+        if (!this.props.data.currentUser) {
+            return alert('You need to create an account first');
+        }
         await this.props.mutate({
             variables,
             refetchQueries: [{ query: allSourcesQuery }],
@@ -47,7 +51,6 @@ export class AddSourceRoute extends React.Component {
                 isLoading={loading}
                 cards={this.state.cards}
                 sub={this.state.sub}
-                subscribeToMorePost={() => {}}
                 onUrlChange={this._onUrlChange}
                 onSave={this._onSave}
             />
@@ -55,4 +58,4 @@ export class AddSourceRoute extends React.Component {
     }
 }
 
-export const AddSourceWithData = graphql(addSourceMutation)(AddSourceRoute);
+export const AddSourceWithData = compose(graphql(currentUser), graphql(addSourceMutation))(AddSourceRoute);

@@ -1,11 +1,13 @@
 .side-menu {
   background: #eceff1;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   color: #616161; }
   .side-menu-list {
-    flex: 1; }
+    flex: 1;
+    display: flex;
+    flex-direction: column; }
   .side-menu .list-group-item {
     border-radius: 0; }
   .side-menu .list-group-item button {
@@ -50,8 +52,7 @@
   .side-menu .group {
     margin-top: 20px; }
   .side-menu .bottom-actions {
-    margin: 0;
-    padding: 0; }
+    width: 100%; }
 
 .side-menu-content {
   margin-left: 250px; }

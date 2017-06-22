@@ -4,19 +4,16 @@ $menu-size: 250px;
 
 .side-menu {
     background: $background-color;
-    height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    // position: fixed;
-    // top: 0;
-    // left: 0;
-    // bottom: 0;
-    // width: $menu-size;
     color: $text-color;
 
     
     &-list {
-        flex: 1
+        flex: 1;
+        display: flex;
+        flex-direction: column;
     }
 
     .list-group-item {
@@ -80,8 +77,7 @@ $menu-size: 250px;
     }
 
     .bottom-actions {
-        margin: 0;
-        padding: 0;
+        width: 100%;
     }
 }
 

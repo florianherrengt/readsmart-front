@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
 import './styles.css';
 import { Group } from './Group';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import _ from 'lodash';
 import { allSourcesQuery } from '../../graphql/source';
+import { currentUser } from '../../graphql/user';
 
 export type SideMenuItem = {
     name: string,
@@ -19,10 +20,12 @@ export type SideMenuProps = {
     items: SideMenuItem[][],
     children?: any,
     history?: any,
+    data?: {
+        loading: boolean,
+    },
 };
 
 export const SideMenu = (props: SideMenuProps) => {
-    console.log(props);
     return (
         <div className="side-menu">
             <div className="side-menu-list">
@@ -35,30 +38,36 @@ export const SideMenu = (props: SideMenuProps) => {
                         <Button><FontAwesome name="share" />Shared</Button>
                     </ListGroupItem>
                 </ListGroup>
-                {props.groups.map((groupName, index) =>
-                    <Group key={index} name={groupName} items={props.items[index]} />,
-                )}
+                <div>
+                    {props.groups &&
+                        props.groups.map((groupName, index) =>
+                            <Group key={index} name={groupName} items={props.items[index]} />,
+                        )}
+                </div>
+                <ListGroup className="bottom-actions">
+                    <ListGroupItem>
+                        <Link to="/addsource">
+                            <Button><FontAwesome name="plus" />Add source</Button>
+                        </Link>
+                    </ListGroupItem>
+                </ListGroup>
             </div>
-            <ListGroup className="bottom-actions">
-                <ListGroupItem>
-                    <Link to="/addsource">
-                        <Button><FontAwesome name="plus" />Add source</Button>
-                    </Link>
-                </ListGroupItem>
-            </ListGroup>
         </div>
     );
 };
 
-export const SideMenuWithData = graphql(allSourcesQuery)(props => {
-    const { data: { loading, allSources } } = props;
-    const emptyItems = [{ name: '' }, { name: '' }, { name: '' }];
-    if (loading) {
-        return <SideMenu {...props} groups={['', '', '']} items={[emptyItems, emptyItems, emptyItems]} />;
-    }
-    const { sources } = allSources;
-    const groups = Object.keys(_.groupBy(sources, 'type'));
-    const items = groups.map(key => sources.filter(source => source.type === key));
-    console.log({ groups, items });
-    return <SideMenu {...props} groups={groups} items={items} />;
-});
+export const SideMenuWithData = compose(
+    graphql(currentUser),
+    graphql(allSourcesQuery, {
+        props: props => {
+            const { data: { allSources } } = props;
+            if (!allSources) {
+                return props;
+            }
+            const { sources } = allSources;
+            const groups = Object.keys(_.groupBy(sources, 'type'));
+            const items = groups.map(key => sources.filter(source => source.type === key));
+            return { groups, items };
+        },
+    }),
+)(SideMenu);
